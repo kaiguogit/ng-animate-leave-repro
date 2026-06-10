@@ -2,7 +2,10 @@
 
 Minimal Angular repro for [`animate.leave` being skipped when two sibling `@if` blocks toggle exclusively in the same tick](https://github.com/angular/angular/issues/69291).
 
-**Open in StackBlitz:** https://stackblitz.com/github/kaiguogit/ng-animate-leave-repro
+> ✅ **This is the `angular-21.1` branch — the WORKING baseline (Angular 21.1.6).** Clicking "Section B" while A is open collapses A with a smooth 600 ms shrink. Compare with the [`main` branch (Angular 21.2 — broken)](https://stackblitz.com/github/kaiguogit/ng-animate-leave-repro), where A vanishes instantly.
+
+**Open this (working, 21.1) in StackBlitz:** https://stackblitz.com/github/kaiguogit/ng-animate-leave-repro/tree/angular-21.1
+**Open the broken (21.2) version:** https://stackblitz.com/github/kaiguogit/ng-animate-leave-repro
 
 ---
 
