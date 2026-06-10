@@ -15,17 +15,21 @@ The regression was introduced by [angular/angular#67032](https://github.com/angu
 ## Reproduction Steps
 
 1. Open the app (or visit the StackBlitz link above).
-2. Notice that **Panel A** starts open.
-3. Click **"Toggle B"** — Panel A should shrink/collapse with a 600 ms animation, and Panel B should expand.
+2. Notice that **Section A** starts open.
+3. Click **"Section B"** — Panel A should shrink/collapse with a 600 ms animation while Panel B expands.
 4. **Expected:** Panel A shrinks smoothly (the `leave` CSS animation runs for 600 ms).
 5. **Actual (Angular 21.2.x):** Panel A disappears instantly — no animation.
 
 ## Expected vs Actual
 
+The bug is **order-dependent** — it only breaks when the *closing* section comes **before** the *opening* one in DOM order. (Both sections update in one tick, walked in order, so the closing element is detached and tracked first, then the entering sibling removes it. Opening an earlier section inserts before anything is tracked, so its sibling's leave runs uncancelled.)
+
 | | Angular ~21.1.0 | Angular ~21.2.0 |
 |---|---|---|
-| Toggle B while A is open | A shrinks smoothly (600 ms) | A disappears instantly (**bug**) |
-| Toggle A while B is open | B shrinks smoothly (600 ms) | B disappears instantly (**bug**) |
+| **Click Section B while A is open** (close earlier, open later) | A shrinks smoothly (600 ms) | **A disappears instantly — the bug** |
+| Click Section A while B is open (close later, open earlier) | B shrinks smoothly (600 ms) | B shrinks smoothly (600 ms) — happens to work |
+
+> ⚠️ Use the **first** direction (Section B while A is open) to see the bug. The second direction animates even on 21.2, so don't be misled by it.
 
 ## How to Switch Angular Versions
 
