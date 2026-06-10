@@ -7,7 +7,7 @@ import {ExpandableComponent} from './expandable.component';
   imports: [ExpandableComponent],
   template: `
     <h1>animate.leave Bug Repro</h1>
-    <h3>Click "Toggle B" while A is open — A should shrink smoothly (it doesn't on 21.2).</h3>
+    <h3>Click "Section B" while Section A is open — A should shrink smoothly (it doesn't on 21.2).</h3>
     <p>
       With Angular <strong>~21.1.0</strong>: both panels animate (grow on enter, shrink on leave).<br>
       With Angular <strong>~21.2.0</strong>: the closing panel is removed <em>instantly</em> — no shrink animation.
